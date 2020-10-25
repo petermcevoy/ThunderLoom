@@ -13,4 +13,4 @@ steps:
 - task: CMake@1
   inputs:
     workingDirectory: 'frontends'
-    cmakeArgs: '-G "Visual Studio 16 2019" -A x64 --config RelWithDebInfo -B build -DCMAKE_INSTALL_PREFIX=install'
+    cmakeArgs: '-G "Visual Studio 16 2019" -A x64 --config RelWithDebInfo -B build -DCMAKE_INSTALL_PREFIX=install .'
