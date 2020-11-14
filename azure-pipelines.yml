@@ -18,7 +18,7 @@ steps:
     definition: 'db2e8b61-26ce-4d06-8201-58f9e83232c9'
     version: '0.0.1'
     downloadPath: '$(System.ArtifactsDirectory)'
-- task: DownloadPackage@1
+- task: DownloadPackage@1 
   inputs:
     packageType: 'upack'
     feed: '/5f5d377c-f4e8-4587-acd2-348e71a79799'
@@ -26,6 +26,11 @@ steps:
     definition: 'f25dc537-a23e-474d-98f3-fa5af32ce539'
     version: '0.0.1'
     downloadPath: '$(System.ArtifactsDirectory)'
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(System.ArtifactsDirectory)/thunderloom_dependencies'
+    Contents: '**'
+    TargetFolder: 'frontends/dependencies'
 - task: CMake@1
   inputs:
     workingDirectory: 'frontends'
