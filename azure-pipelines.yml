@@ -10,12 +10,6 @@ pool:
   vmImage: 'windows-latest'
 
 steps:
-
-- task: CopyFiles@2
-  inputs:
-    SourceFolder: '$(System.ArtifactsDirectory)/thunderloom_dependencies'
-    Contents: '**'
-    TargetFolder: 'frontends/dependencies'
 - task: DownloadPackage@1
   inputs:
     packageType: 'upack'
