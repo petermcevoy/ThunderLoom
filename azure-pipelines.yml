@@ -41,6 +41,6 @@ steps:
     cmakeArgs: '--build .\build --config RelWithDebInfo --target thunderloom_pattern_editor'
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: 'frontends/release/'
+    PathtoPublish: 'frontends/build/'
     ArtifactName: 'build'
     publishLocation: 'Container'
