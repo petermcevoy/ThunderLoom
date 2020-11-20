@@ -21,24 +21,24 @@ steps:
     version: '0.0.1'
     downloadPath: 'frontends/dependencies/'
 
-# Get max/vray sdks
+# Get max/vray/wix sdks
 - task: DownloadPackage@1
   inputs:
     packageType: 'upack'
     feed: '/5f5d377c-f4e8-4587-acd2-348e71a79799'
-    view: 
-    definition: 'db2e8b61-26ce-4d06-8201-58f9e83232c9'
+    view: '0781f2df-dcd1-4e1a-82ff-81f1fa300634'
+    definition: '745061d4-9a90-44d7-9210-85d768f5e981'
     version: '0.0.1'
-    downloadPath: '.'
+    downloadPath: '$(System.ArtifactsDirectory)'
 
 - task: CMake@1
   inputs:
     workingDirectory: 'frontends'
-    cmakeArgs: '-G "Visual Studio 16 2019" -A x64 --config RelWithDebInfo -B build -D3DSMAX_VERSION=2019 .'
+    cmakeArgs: '-G "Visual Studio 16 2019" -A x64 --config RelWithDebInfo -B build .'
 - task: CMake@1
   inputs:
     workingDirectory: 'frontends'
-    cmakeArgs: '--build .\build --config RelWithDebInfo --target thunderloom_pattern_editor'
+    cmakeArgs: '--build .\build --config RelWithDebInfo --target install'
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: 'frontends/build/'
