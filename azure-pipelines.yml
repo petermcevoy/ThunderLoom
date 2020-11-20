@@ -38,9 +38,10 @@ steps:
       -G "Visual Studio 16 2019"
       -A x64
       --config RelWithDebInfo
-      -B build .
+      -B build
       -DBUILD_VRAY_STANDALONE=1
       -DVRAY_STANDALONE_ROOT=$(System.ArtifactsDirectory)/thunderloom_sdks/vray/vraystd_adv_43002_x64_vc14
+      .
 - task: CMake@1
   inputs:
     workingDirectory: 'frontends'
