@@ -22,14 +22,15 @@ steps:
     downloadPath: 'frontends/dependencies/'
 
 # Get max/vray/wix sdks
-- task: DownloadPackage@1
+- task: UniversalPackages@0
   inputs:
-    packageType: 'upack'
-    feed: '/5f5d377c-f4e8-4587-acd2-348e71a79799'
-    view: '0781f2df-dcd1-4e1a-82ff-81f1fa300634'
-    definition: '745061d4-9a90-44d7-9210-85d768f5e981'
-    version: '0.0.1'
-    downloadPath: '$(System.ArtifactsDirectory)'
+    command: 'download'
+    downloadDirectory: '$(System.DefaultWorkingDirectory)'
+    feedsToUse: 'internal'
+    vstsFeed: '5f5d377c-f4e8-4587-acd2-348e71a79799'
+    vstsFeedPackage: '745061d4-9a90-44d7-9210-85d768f5e981'
+    vstsPackageVersion: '0.0.1'
+    verbosity: 'Information'
 
 - task: CMake@1
   inputs:
@@ -40,7 +41,7 @@ steps:
       --config RelWithDebInfo
       -B build
       -DBUILD_VRAY_STANDALONE=1
-      -DVRAY_STANDALONE_ROOT=$(System.ArtifactsDirectory)/thunderloom_sdks/vray/vraystd_adv_43002_x64_vc14
+      -DVRAY_STANDALONE_ROOT=$(System.DefaultWorkingDirectory)/thunderloom_sdks/vray/vraystd_adv_43002_x64_vc14
       .
 - task: CMake@1
   inputs:
