@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.8)
 
-project(thunderLoomVRayMaya)
+project(thunderloomVRayMaya)
 set(CMAKE_MACOSX_RPATH 1)
 
 # Varibles
@@ -95,23 +95,23 @@ include_directories(SYSTEM ${INCLUDE_DIRS})
 # Load libraries
 link_directories(${LIB_DIRS})
 
-add_library(thunderLoomVRayMaya MODULE ${SOURCES})
+add_library(thunderloomVRayMaya MODULE ${SOURCES})
 
 IF (WIN32)
-    set_target_properties(thunderLoomVRayMaya PROPERTIES SUFFIX ".mll")
+    set_target_properties(thunderloomVRayMaya PROPERTIES SUFFIX ".mll")
     IF(MSVC)
         # Do not put resulting dll in VisualStudios Debug/Release folders
-        set_target_properties( thunderLoomVRayMaya PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${LIBRARY_OUTPUT_PATH} )
-        set_target_properties( thunderLoomVRayMaya PROPERTIES LIBRARY_OUTPUT_DIRECTORY_DEBUG ${LIBRARY_OUTPUT_PATH} )
-        set_target_properties( thunderLoomVRayMaya PROPERTIES LIBRARY_OUTPUT_DIRECTORY_RELEASE ${LIBRARY_OUTPUT_PATH} )
-        set_target_properties( thunderLoomVRayMaya PROPERTIES LIBRARY_OUTPUT_DIRECTORY_RELWITHDEBINFO ${LIBRARY_OUTPUT_PATH} )
+        set_target_properties( thunderloomVRayMaya PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${LIBRARY_OUTPUT_PATH} )
+        set_target_properties( thunderloomVRayMaya PROPERTIES LIBRARY_OUTPUT_DIRECTORY_DEBUG ${LIBRARY_OUTPUT_PATH} )
+        set_target_properties( thunderloomVRayMaya PROPERTIES LIBRARY_OUTPUT_DIRECTORY_RELEASE ${LIBRARY_OUTPUT_PATH} )
+        set_target_properties( thunderloomVRayMaya PROPERTIES LIBRARY_OUTPUT_DIRECTORY_RELWITHDEBINFO ${LIBRARY_OUTPUT_PATH} )
     ENDIF(MSVC)
 ENDIF (WIN32)
 
 # Set warnings
 if (${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang")
-    set_target_properties(thunderLoomVRayMaya PROPERTIES SUFFIX ".bundle")
-    target_compile_options(thunderLoomVRayMaya PRIVATE 
+    set_target_properties(thunderloomVRayMaya PROPERTIES SUFFIX ".bundle")
+    target_compile_options(thunderloomVRayMaya PRIVATE 
         "-std=c++11"
         "-Wall"
         "-Wno-unknown-pragmas"
@@ -122,10 +122,10 @@ if (${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang")
 endif()
 
 # Link Libs
-target_link_libraries(thunderLoomVRayMaya ${LIBS})
+target_link_libraries(thunderloomVRayMaya ${LIBS})
 
 # Setup build directory
-add_custom_command(TARGET thunderLoomVRayMaya POST_BUILD
+add_custom_command(TARGET thunderloomVRayMaya POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy
                 ${CMAKE_CURRENT_SOURCE_DIR}/README.md
                 ${RELEASE_DIR}/README_Maya.md
