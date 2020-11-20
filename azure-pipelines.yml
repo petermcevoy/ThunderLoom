@@ -40,7 +40,7 @@ steps:
       -A x64
       --config RelWithDebInfo
       -B build
-      -DBUILD_VRAY_STANDALONE=1
+      -DBUILD_VRAYSTANDALONE=1
       -DVRAY_STANDALONE_ROOT=$(System.DefaultWorkingDirectory)/thunderloom_sdks/vray/vraystd_adv_43002_x64_vc14
       .
 - task: CMake@1
