@@ -41,6 +41,6 @@ steps:
     cmakeArgs: '--build .\build --config RelWithDebInfo --target install'
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: 'frontends/build/'
-    ArtifactName: 'build'
+    PathtoPublish: 'frontends/out/install'
+    ArtifactName: 'install'
     publishLocation: 'Container'
