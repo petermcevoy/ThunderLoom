@@ -41,6 +41,10 @@ steps:
       -B build
       -DBUILD_VRAYSTANDALONE=1
       -DVRAY_STANDALONE_ROOT=$(System.DefaultWorkingDirectory)/thunderloom_sdks/vray/vraystd_adv_43002_x64_vc14
+      -D3DSMAX_VERSIONS=2019
+      -D3DSMAXSDK_ROOT=$(System.DefaultWorkingDirectory)/thunderloom_sdks/max/3ds Max 2019 SDK/maxsdk
+      -DVRAY3DSMAX_ROOT=$(System.DefaultWorkingDirectory)/thunderloom_sdks/vray/vray_adv_43002_maya2019_x64/vray
+      -DWIX_BIN_PATH=$(System.DefaultWorkingDirectory)/thunderloom_sdks/wix_bin/WiX Toolset v3.11/bin
       .
 - task: CMake@1
   inputs:
