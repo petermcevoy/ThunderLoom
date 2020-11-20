@@ -22,15 +22,14 @@ steps:
     downloadPath: 'frontends/dependencies/'
 
 # Get max/vray/wix sdks
-- task: UniversalPackages@0
+- task: DownloadPackage@1
   inputs:
-    command: 'download'
-    downloadDirectory: '$(System.DefaultWorkingDirectory)'
-    feedsToUse: 'internal'
-    vstsFeed: '5f5d377c-f4e8-4587-acd2-348e71a79799'
-    vstsFeedPackage: '745061d4-9a90-44d7-9210-85d768f5e981'
-    vstsPackageVersion: '0.0.1'
-    verbosity: 'Information'
+    packageType: 'upack'
+    feed: '/5f5d377c-f4e8-4587-acd2-348e71a79799'
+    view: '0781f2df-dcd1-4e1a-82ff-81f1fa300634'
+    definition: '745061d4-9a90-44d7-9210-85d768f5e981'
+    version: '0.0.1'
+    downloadPath: '$(System.DefaultWorkingDirectory)/thunderloom_sdks'
 
 - task: CMake@1
   inputs:
