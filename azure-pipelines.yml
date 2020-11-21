@@ -45,7 +45,7 @@ steps:
       -D3DSMAX_VERSIONS=2019
       -D3DSMAXSDK2019_ROOT="$(System.DefaultWorkingDirectory)/thunderloom_sdks/max/3ds Max 2019 SDK/maxsdk"
       -DVRAY3DSMAX_ROOT2019="$(System.DefaultWorkingDirectory)/thunderloom_sdks/vray/vray_adv_43001_max2019_x64/3ds Max 2019"
-      -DWIX_BIN_PATH=$(System.DefaultWorkingDirectory)/thunderloom_sdks/wix_bin/WiX Toolset v3.11/bin
+      -DWIX_BIN_PATH="$(System.DefaultWorkingDirectory)/thunderloom_sdks/wix_bin/WiX Toolset v3.11/bin"
       .
 - task: CMake@1
   inputs:
