@@ -29,18 +29,30 @@ steps:
     view: '0781f2df-dcd1-4e1a-82ff-81f1fa300634'
     definition: '745061d4-9a90-44d7-9210-85d768f5e981'
     version: '0.0.1'
-    downloadPath: '$(System.ArtifactsDirectory)'
+    downloadPath: '$(System.DefaultWorkingDirectory)/thunderloom_sdks'
 
 - task: CMake@1
   inputs:
     workingDirectory: 'frontends'
-    cmakeArgs: '-G "Visual Studio 16 2019" -A x64 --config RelWithDebInfo -B build .'
+    cmakeArgs: >-
+      -G "Visual Studio 16 2019"
+      -A x64
+      --config RelWithDebInfo
+      -B build
+      -DBUILD_VRAYSTANDALONE=1
+      -DVRAY_STANDALONE_ROOT=$(System.DefaultWorkingDirectory)/thunderloom_sdks/vray/vraystd_adv_43002_x64_vc14
+      -DBUILD_3DSMAX=1
+      -D3DSMAX_VERSIONS=2019
+      -D3DSMAXSDK2019_ROOT="$(System.DefaultWorkingDirectory)/thunderloom_sdks/max/3ds Max 2019 SDK/maxsdk"
+      -DVRAY3DSMAX_ROOT2019="$(System.DefaultWorkingDirectory)/thunderloom_sdks/vray/vray_adv_43001_max2019_x64/3ds Max 2019"
+      -DWIX_BIN_PATH="$(System.DefaultWorkingDirectory)/thunderloom_sdks/wix_bin/WiX Toolset v3.11/bin"
+      .
 - task: CMake@1
   inputs:
     workingDirectory: 'frontends'
     cmakeArgs: '--build .\build --config RelWithDebInfo --target install'
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: 'frontends/build/'
-    ArtifactName: 'build'
+    PathtoPublish: 'frontends/out/install'
+    ArtifactName: 'install'
     publishLocation: 'Container'
