@@ -16,7 +16,7 @@ string(REGEX REPLACE ${VERSION_PATCH_REGEX} "\\1" TL_VERSION_PATCH "${TL_VERSION
 project(thunderloom_frontends)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-set(CMAKE_INSTALL_PREFIX ${CMAKE_SOURCE_DIR}/out/install)
+set(CMAKE_INSTALL_PREFIX ${CMAKE_SOURCE_DIR}/out/install/${CMAKE_SYSTEM_NAME})
 
 
 set(BUILD_MAYA FALSE CACHE BOOL "Build Maya frontend")
@@ -43,16 +43,4 @@ ENDIF()
 
 IF(BUILD_MAYA)
     add_subdirectory(vraymaya)
-
-    # TODO: Move the following into an install step?
-    # Copy V-Ray standalone to Maya plugin, when building for Maya
-    #add_custom_target(vraymaya_copy_vrayplugin ALL
-    #    DEPENDS ${CMAKE_INSTALL_PREFIX}/V-Ray\ for\ Maya${MAYA_VERSION}/vray_plugin/${CMAKE_SHARED_LIBRARY_PREFIX}vray_thunderloom${CMAKE_SHARED_LIBRARY_SUFFIX}
-    #    )
-    #add_custom_command(
-    #    OUTPUT ${CMAKE_INSTALL_PREFIX}/V-Ray\ for\ Maya${MAYA_VERSION}/vray_plugin/${CMAKE_SHARED_LIBRARY_PREFIX}vray_thunderloom${CMAKE_SHARED_LIBRARY_SUFFIX}
-    #    COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_INSTALL_PREFIX}/V-Ray/ ${CMAKE_INSTALL_PREFIX}/V-Ray\ for\ Maya${MAYA_VERSION}/vray_plugin/
-    #    )
-    ##add_dependencies(vraymaya_copy_vrayplugin vray_thunderloom)
-    #add_dependencies(thunderloomVRayMaya vraymaya_copy_vrayplugin)
 ENDIF()
