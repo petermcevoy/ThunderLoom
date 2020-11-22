@@ -69,6 +69,7 @@ steps:
     SymbolsFolder: '$(Build.SourcesDirectory)/frontends/out/install/Windows/pdbs/'
     SearchPattern: '*.pdb'
     SymbolServerType: 'TeamServices'
+    IndexSources: false
     TreatNotIndexedAsWarning: false
 - task: PublishBuildArtifacts@1
   inputs:
