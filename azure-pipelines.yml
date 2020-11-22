@@ -56,24 +56,14 @@ steps:
     script: '.\make_installer.bat'
     workingDirectory: 'frontends/out/install/Windows/thunderloom_installer'
     failOnStderr: true
-
-#- script: python -m pip install --upgrade pip setuptools wheel
-#  displayName: 'Install srcserv pythonmodule'
-- script: python -m pip install srcsrv
-  displayName: 'Install srcsrv pythonmodule'
-
-- task: PythonScript@0
-  inputs:
-    scriptSource: inline
-    script: |
-      import os
-      import srcsrv
-      srcsrv.main(['--build-base', r'$(Build.SourcesDirectory)',
-        '--pdbs', 'frontends/out/install/Windows/pdbs',
-        '--branch', '$(Build.SourceBranch)'
-      ])
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: 'frontends/out/install'
     ArtifactName: 'install'
     publishLocation: 'Container'
+- task: PublishSymbols@2
+  inputs:
+    SymbolsFolder: '$(Build.SourcesDirectory)/frontends/out/install/Windows/pdbs/'
+    SearchPattern: '*.pdb'
+    SymbolServerType: 'TeamServices'
+    TreatNotIndexedAsWarning: true
