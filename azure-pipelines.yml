@@ -21,7 +21,13 @@ steps:
     version: '0.0.1'
     downloadPath: 'frontends/dependencies/'
 # Get max/vray/wix sdks
+- task: Cache@2
+  inputs:
+    key: '""0.0.3"'
+    path: '$(System.DefaultWorkingDirectory)/thunderloom_sdks'
+    cacheHitVar: 'CACHE_HIT'
 - task: DownloadPackage@1
+  condition: ne(variables.CACHE_HIT, 'true')
   inputs:
     packageType: 'upack'
     feed: '/5f5d377c-f4e8-4587-acd2-348e71a79799'
@@ -67,9 +73,9 @@ steps:
     script: |
       import os
       import srcsrv
-      srcsrv.main(['--build-base', r'${Build.SourcesDirectory}',
+      srcsrv.main(['--build-base', r'$(Build.SourcesDirectory)',
         '--pdbs', 'frontends/out/install/Windows/pdbs',
-        '--hexsha', ${Build.SourceVersionMessage},
+        '--hexsha', $(Build.SourceVersionMessage),
       ])
 - task: PublishBuildArtifacts@1
   inputs:
