@@ -37,7 +37,7 @@ steps:
     feed: '/5f5d377c-f4e8-4587-acd2-348e71a79799'
     view: '0781f2df-dcd1-4e1a-82ff-81f1fa300634'
     definition: '745061d4-9a90-44d7-9210-85d768f5e981'
-    version: '$(variables.THUNDERLOOM_SDKS_VERSION)'
+    version: $(variables.THUNDERLOOM_SDKS_VERSION)
     downloadPath: '$(System.DefaultWorkingDirectory)/thunderloom_sdks'
 
 - task: CMake@1
