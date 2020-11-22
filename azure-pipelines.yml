@@ -22,7 +22,7 @@ steps:
     downloadPath: 'frontends/dependencies/'
 - task: Cache@2
   inputs:
-    key: '''0.0.3'''
+    key: '0.0.3'
     path: '$(System.DefaultWorkingDirectory)/thunderloom_sdks'
     cacheHitVar: 'CACHE_HIT'
 # Get max/vray/wix sdks
