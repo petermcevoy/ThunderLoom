@@ -54,16 +54,16 @@ steps:
 - task: CmdLine@2
   inputs:
     script: '.\make_installer.bat'
-    workingDirectory: 'frontends\out\install\Windows'
+    workingDirectory: 'frontends/out/install/Windows/thunderloom_installer'
     failOnStderr: true
+- task: PublishSymbols@2
+  inputs:
+    SymbolsFolder: 'frontends/out/install/Windows/pdbs'
+    SearchPattern: '*.pdb'
+    SymbolServerType: 'TeamServices'
+    TreatNotIndexedAsWarning: true
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: 'frontends/out/install'
     ArtifactName: 'install'
     publishLocation: 'Container'
-- task: PublishSymbols@2
-  inputs:
-    SymbolsFolder: 'frontends\out\install\Windows\pdbs'
-    SearchPattern: '*.pdb'
-    SymbolServerType: 'TeamServices'
-    TreatNotIndexedAsWarning: true
