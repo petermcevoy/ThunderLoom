@@ -56,8 +56,11 @@ steps:
     workingDirectory: 'frontends/out/install/Windows/thunderloom_installer'
     failOnStderr: true
 
-- script: python -m pip install --upgrade pip setuptools wheel
+#- script: python -m pip install --upgrade pip setuptools wheel
+#  displayName: 'Install srcserv pythonmodule'
+- script: python -m pip install scrsrv
   displayName: 'Install srcserv pythonmodule'
+
 - task: PythonScript@0
   inputs:
     scriptSource: inline
