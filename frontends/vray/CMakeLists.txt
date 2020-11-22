@@ -9,7 +9,7 @@ IF (BUILD_VRAYSTANDALONE)
 ENDIF()
 IF (BUILD_MAYA)
 	foreach(MAYA_VERSION ${MAYA_VERSIONS})
-		list(APPEND VRAY_BUILD_VERSIONS "MAYA${MAYA_VERSION}")
+		list(APPEND VRAY_BUILD_VERSIONS "${MAYA_VERSION}")
 	endforeach()
 ENDIF()
 
@@ -30,18 +30,17 @@ foreach(VRAY_VERSION ${VRAY_BUILD_VERSIONS})
         ENDIF()
     ELSE()
 		IF (WIN32)
-			set(VRAY_${VRAY_VERSION}_ROOT "C:/Program Files/Chaos Group/V-Ray/Maya${VRAY_VERSION}" CACHE PATH "Path to V-Ray for maya root dir")
-			set(VRAY_${VRAY_VERSION}_INCLUDE "${VRAY_MAYA${VRAY_VERSION}_SDK_ROOT}/include" CACHE PATH "Path to V-Ray for maya include dir")
-			set(VRAY_${VRAY_VERSION}_LIB "${VRAY_MAYA${VRAY_VERSION}_SDK_ROOT}/lib/x64/vc14" CACHE PATH "Path to V-Ray for maya lib dir")
+			set(VRAY_MAYA${VRAY_VERSION}_ROOT "C:/Program Files/Chaos Group/V-Ray/Maya ${VRAY_VERSION}" CACHE PATH "Path to V-Ray for maya root dir")
+			set(VRAY_MAYA${VRAY_VERSION}_INCLUDE "${VRAY_MAYA${VRAY_VERSION}_ROOT}/include" CACHE PATH "Path to V-Ray for maya include dir")
+			set(VRAY_MAYA${VRAY_VERSION}_LIB "${VRAY_MAYA${VRAY_VERSION}_ROOT}/lib/" CACHE PATH "Path to V-Ray for maya lib dir")
 		ENDIF()
 		IF (APPLE)
-			set(VRAY_${VRAY_VERSION}_ROOT "/Applications/ChaosGroup/V-Ray/Maya${VRAY_VERSION}" CACHE PATH "Path to V-Ray for maya root dir")
-			set(VRAY_${VRAY_VERSION}_INCLUDE "${VRAY_MAYA${VRAY_VERSION}_SDK_ROOT}/include" CACHE PATH "Path to V-Ray for maya include dir")
-			set(VRAY_${VRAY_VERSION}_LIB "${VRAY_MAYA${VRAY_VERSION}_SDK_ROOT}/lib/mavericks_x64/gcc-4.2-cpp" CACHE PATH "Path to V-Ray for maya lib dir")
+			set(VRAY_MAYA${VRAY_VERSION}_ROOT "/Applications/ChaosGroup/V-Ray/Maya ${VRAY_VERSION}" CACHE PATH "Path to V-Ray for maya root dir")
+			set(VRAY_MAYA${VRAY_VERSION}_INCLUDE "${VRAY_MAYA${VRAY_VERSION}_ROOT}/include" CACHE PATH "Path to V-Ray for maya include dir")
+			set(VRAY_MAYA${VRAY_VERSION}_LIB "${VRAY_MAYA${VRAY_VERSION}_ROOT}/lib/mavericks_x64/gcc-4.2-cpp" CACHE PATH "Path to V-Ray for maya lib dir")
         ENDIF()
+		set(VRAY_VERSION "MAYA${VRAY_VERSION}")
     ENDIF()
-
-    set(LIBRARY_OUTPUT_PATH ${CMAKE_INSTALL_PREFIX}/V-Ray/)
 
 	# Additional includes
 	set(SOURCES vray_thunderloom.cpp
@@ -62,8 +61,6 @@ foreach(VRAY_VERSION ${VRAY_BUILD_VERSIONS})
 
 	set(INCLUDE_DIRS ${INCLUDE_DIRS} ${VRAY_${VRAY_VERSION}_INCLUDE})
 	set(LIB_DIRS ${LIB_DIRS} ${VRAY_${VRAY_VERSION}_LIB})
-	#set(INCLUDE_DIRS ${INCLUDE_DIRS} ${VRAY_STANDALONE_INCLUDE})
-	#set(LIB_DIRS ${LIB_DIRS} ${VRAY_STANDALONE_LIB})
 
 	# Platform specific libs, files configs
 	IF (WIN32)
@@ -96,15 +93,6 @@ foreach(VRAY_VERSION ${VRAY_BUILD_VERSIONS})
 	target_link_directories(vray_thunderloom_${VRAY_VERSION} PRIVATE ${LIB_DIRS})
 
 	# Build
-	IF (WIN32)
-		IF(MSVC)
-			# Do not put resulting dll in VisualStudios Debug/Release folders
-			set_target_properties( vray_thunderloom_${VRAY_VERSION} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${LIBRARY_OUTPUT_PATH} )
-			set_target_properties( vray_thunderloom_${VRAY_VERSION} PROPERTIES RUNTIME_OUTPUT_DIRECTORY_DEBUG ${LIBRARY_OUTPUT_PATH} )
-			set_target_properties( vray_thunderloom_${VRAY_VERSION} PROPERTIES RUNTIME_OUTPUT_DIRECTORY_RELEASE ${LIBRARY_OUTPUT_PATH} )
-			set_target_properties( vray_thunderloom_${VRAY_VERSION} PROPERTIES RUNTIME_OUTPUT_DIRECTORY_RELWITHDEBINFO ${LIBRARY_OUTPUT_PATH} )
-		ENDIF(MSVC)
-	ENDIF (WIN32)
 	IF(APPLE)
 		set_target_properties(vray_thunderloom_${VRAY_VERSION} PROPERTIES SUFFIX ".so")
 		target_compile_definitions(vray_thunderloom_${VRAY_VERSION} PRIVATE
@@ -134,11 +122,11 @@ foreach(VRAY_VERSION ${VRAY_BUILD_VERSIONS})
 
 	# Link Libs
 	target_link_libraries(vray_thunderloom_${VRAY_VERSION} ${LIBS})
-
-	#add_custom_command(TARGET vray_thunderloom_${VRAY_VERSION} POST_BUILD
-	#		COMMAND ${CMAKE_COMMAND} -E copy
-	#				${CMAKE_CURRENT_SOURCE_DIR}/README.md
-	#				${CMAKE_INSTALL_PREFIX}/README_V-Ray_Standalone.md
-	#				)
-
+	
+    IF(${VRAY_VERSION} STREQUAL "STANDALONE")
+		install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/README.md" DESTINATION . RENAME "README_V-Ray_Standalone.md")
+		install(TARGETS vray_thunderloom_STANDALONE DESTINATION "V-Ray Standalone")
+	ENDIF()
+	# Installs for builds for maya are defined in vraymaya/CMakeLists.txt
 endforeach(VRAY_VERSION)
+
