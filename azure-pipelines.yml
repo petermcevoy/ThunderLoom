@@ -56,3 +56,9 @@ steps:
     PathtoPublish: 'frontends/out/install'
     ArtifactName: 'install'
     publishLocation: 'Container'
+- task: PublishSymbols@2
+  inputs:
+    SymbolsFolder: 'frontends/out/install/pdbs'
+    SearchPattern: '**/bin/**/*.pdb'
+    SymbolServerType: 'TeamServices'
+    TreatNotIndexedAsWarning: true
