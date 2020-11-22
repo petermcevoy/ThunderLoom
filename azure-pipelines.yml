@@ -55,6 +55,19 @@ steps:
     script: '.\make_installer.bat'
     workingDirectory: 'frontends/out/install/Windows/thunderloom_installer'
     failOnStderr: true
+
+- script: python -m pip install --upgrade pip setuptools wheel
+  displayName: 'Install srcserv pythonmodule'
+- task: PythonScript@0
+  inputs:
+    scriptSource: inline
+    script: |
+      import os
+      import srcsrv
+      srcsrv.main(['--build-base', r'c:\builds\ver1.1.0',
+             '--pdbs', 'debug', 'release',
+             '--hexsha', os.environ['GIT_SHA'],
+             ...])
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: 'frontends/out/install'
