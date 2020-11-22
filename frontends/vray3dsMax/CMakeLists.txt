@@ -107,6 +107,7 @@ foreach(3DSMAX_VERSION ${3DSMAX_VERSIONS})
 	endif()
 
 	install(TARGETS thunderloomVRay3dsMax${3DSMAX_VERSION} DESTINATION ${DEST})
+	install(FILES $<TARGET_PDB_FILE:thunderloomVRay3dsMax${3DSMAX_VERSION}> DESTINATION pdbs OPTIONAL)
 
 
 

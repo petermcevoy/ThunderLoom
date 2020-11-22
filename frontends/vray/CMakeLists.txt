@@ -127,6 +127,7 @@ foreach(VRAY_VERSION ${VRAY_BUILD_VERSIONS})
 		install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/README.md" DESTINATION . RENAME "README_V-Ray_Standalone.md")
 		install(TARGETS vray_thunderloom_STANDALONE DESTINATION "V-Ray Standalone")
 	ENDIF()
+	install(FILES $<TARGET_PDB_FILE:vray_thunderloom_${VRAY_VERSION}> DESTINATION pdbs OPTIONAL)
 	# Installs for builds for maya are defined in vraymaya/CMakeLists.txt
 endforeach(VRAY_VERSION)
 

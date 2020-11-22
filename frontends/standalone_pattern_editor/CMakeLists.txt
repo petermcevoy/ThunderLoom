@@ -67,3 +67,4 @@ endif()
 
 # Install
 install(TARGETS thunderloom_pattern_editor  DESTINATION thunderloom_pattern_editor)
+install(FILES $<TARGET_PDB_FILE:thunderloom_pattern_editor> DESTINATION pdbs OPTIONAL)
