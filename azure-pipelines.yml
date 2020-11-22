@@ -67,10 +67,10 @@ steps:
     script: |
       import os
       import srcsrv
-      srcsrv.main(['--build-base', r'c:\builds\ver1.1.0',
-             '--pdbs', 'debug', 'release',
-             '--hexsha', os.environ['GIT_SHA'],
-             ...])
+      srcsrv.main(['--build-base', r'${Build.SourcesDirectory}',
+        '--pdbs', 'frontends/out/install/Windows/pdbs',
+        '--hexsha', ${Build.SourceVersionMessage},
+      ])
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: 'frontends/out/install'
