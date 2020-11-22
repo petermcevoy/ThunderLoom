@@ -69,7 +69,8 @@ steps:
       import os
       import srcsrv
       srcsrv.main(['--build-base', r'$(Build.SourcesDirectory)',
-        '--pdbs', 'frontends/out/install/Windows/pdbs'
+        '--pdbs', 'frontends/out/install/Windows/pdbs',
+        '--branch', '$(Build.SourceBranch)'
       ])
 - task: PublishBuildArtifacts@1
   inputs:
