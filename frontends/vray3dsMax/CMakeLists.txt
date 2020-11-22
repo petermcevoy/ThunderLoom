@@ -86,7 +86,7 @@ foreach(3DSMAX_VERSION ${3DSMAX_VERSIONS})
 		"glfw3"
 		"opengl32"
 	)
-	set(DEST "V-Ray for 3ds Max ${3DSMAX_VERSION}")
+	set(DEST thunderloomVRay3dsMax)
 
 	add_library(thunderloomVRay3dsMax${3DSMAX_VERSION} MODULE ${SRC})
 	target_link_libraries (thunderloomVRay3dsMax${3DSMAX_VERSION} ${LIBS})
