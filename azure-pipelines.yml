@@ -51,6 +51,11 @@ steps:
   inputs:
     workingDirectory: 'frontends'
     cmakeArgs: '--build .\build --config RelWithDebInfo --target install'
+- task: CmdLine@2
+  inputs:
+    script: '.\make_installer.bat'
+    workingDirectory: 'frontends\out\install\Windows'
+    failOnStderr: true
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: 'frontends/out/install'
@@ -58,7 +63,7 @@ steps:
     publishLocation: 'Container'
 - task: PublishSymbols@2
   inputs:
-    SymbolsFolder: 'frontends/out/install/pdbs'
-    SearchPattern: '**/bin/**/*.pdb'
+    SymbolsFolder: 'frontends\out\install\Windows\pdbs'
+    SearchPattern: '*.pdb'
     SymbolServerType: 'TeamServices'
     TreatNotIndexedAsWarning: true
