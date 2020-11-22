@@ -58,7 +58,7 @@ steps:
     failOnStderr: true
 - task: PublishSymbols@2
   inputs:
-    SymbolsFolder: 'frontends/out/install/Windows/pdbs'
+    SymbolsFolder: '$(Build.SourcesDirectory)/frontends/out/install/Windows/pdbs'
     SearchPattern: '*.pdb'
     SymbolServerType: 'TeamServices'
     TreatNotIndexedAsWarning: true
