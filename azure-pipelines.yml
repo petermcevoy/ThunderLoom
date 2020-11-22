@@ -41,10 +41,18 @@ steps:
       -B build
       -DBUILD_VRAYSTANDALONE=1
       -DVRAY_STANDALONE_ROOT=$(System.DefaultWorkingDirectory)/thunderloom_sdks/vray/vraystd_adv_43002_x64_vc14
+      -DBUILD_MAYA=1
+      -DMAYA_VERSIONS=2019;2020
+      -DMAYASDK2019_ROOT="$(System.DefaultWorkingDirectory)/thunderloom_sdks/maya/maya_2019_update_3"
+      -DVRAY_MAYA2019_ROOT="$(System.DefaultWorkingDirectory)/thunderloom_sdks/vray/vray_adv_43002_maya2019_x64/vray"
+      -DMAYASDK2020_ROOT="$(System.DefaultWorkingDirectory)/thunderloom_sdks/maya/maya_2020_update_3"
+      -DVRAY_MAYA2020_ROOT="$(System.DefaultWorkingDirectory)/thunderloom_sdks/vray/vray_adv_43002_maya2020_x64/vray"
       -DBUILD_3DSMAX=1
-      -D3DSMAX_VERSIONS=2019
+      -D3DSMAX_VERSIONS=2019;2021
       -D3DSMAXSDK2019_ROOT="$(System.DefaultWorkingDirectory)/thunderloom_sdks/max/3ds Max 2019 SDK/maxsdk"
       -DVRAY_3DSMAX2019_ROOT="$(System.DefaultWorkingDirectory)/thunderloom_sdks/vray/vray_adv_43001_max2019_x64/3ds Max 2019"
+      -D3DSMAXSDK2021_ROOT="$(System.DefaultWorkingDirectory)/thunderloom_sdks/max/3ds Max 2021 SDK/maxsdk"
+      -DVRAY_3DSMAX2021_ROOT="$(System.DefaultWorkingDirectory)/thunderloom_sdks/vray/vray_adv_43002_max2021_x64/3ds Max 2021"
       -DWIX_BIN_PATH="$(System.DefaultWorkingDirectory)/thunderloom_sdks/wix_bin/WiX Toolset v3.11/bin"
       .
 - task: CMake@1
@@ -56,14 +64,14 @@ steps:
     script: '.\make_installer.bat'
     workingDirectory: 'frontends/out/install/Windows/thunderloom_installer'
     failOnStderr: true
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: 'frontends/out/install'
-    ArtifactName: 'install'
-    publishLocation: 'Container'
 - task: PublishSymbols@2
   inputs:
     SymbolsFolder: '$(Build.SourcesDirectory)/frontends/out/install/Windows/pdbs/'
     SearchPattern: '*.pdb'
     SymbolServerType: 'TeamServices'
-    TreatNotIndexedAsWarning: true
+    TreatNotIndexedAsWarning: false
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: 'frontends/out/install'
+    ArtifactName: 'install'
+    publishLocation: 'Container'
