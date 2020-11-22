@@ -58,8 +58,8 @@ steps:
 
 #- script: python -m pip install --upgrade pip setuptools wheel
 #  displayName: 'Install srcserv pythonmodule'
-- script: python -m pip install scrsrv
-  displayName: 'Install srcserv pythonmodule'
+- script: python -m pip install srcsrv
+  displayName: 'Install srcsrv pythonmodule'
 
 - task: PythonScript@0
   inputs:
